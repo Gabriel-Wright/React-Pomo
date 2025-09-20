@@ -1,67 +1,49 @@
 import { useState, type ReactNode } from "react";
+import SetupView from "./SetupView";
+import CountdownView from "./CountdownView";
+interface PomodoroSettings {
+  rounds: number;
+  workTime: number;
+  breakTime: number;
+}
 
-interface Props {
-  isSetup?: boolean;
-  numRounds?: number;
-  workTime?: number;
-  breakTime?: number;
+interface PomodoroStatus {
+  isSetupShown: boolean;
+  isRunning: boolean;
+  isFinished: boolean;
+  completedRounds: number;
+  workTimeRemaining: number;
+  breakTimeRemaining: number;
+}
+
+interface MainContainerProps {
+  settings: PomodoroSettings;
+  setSettings: React.Dispatch<React.SetStateAction<PomodoroSettings>>;
+  status: PomodoroStatus;
+  setStatus: React.Dispatch<React.SetStateAction<PomodoroStatus>>;
 }
 
 function MainContainer({
-  isSetup = false,
-  numRounds = 3,
-  workTime = 25,
-  breakTime = 5,
-}: Props) {
-  const [rounds, setRounds] = useState(numRounds);
-  const [time, setTime] = useState("00:25"); // default 25 minutes
-  const [minutes, setMinutes] = useState(25);
-  const [seconds, setSeconds] = useState(0);
+  settings,
+  setSettings,
+  status,
+  setStatus,
+}: MainContainerProps) {
   return (
-    <div className="main-container">
-      {!isSetup && (
-        <div>
-          <label>Num Rounds: </label>
-          <input
-            type="number"
-            min={1}
-            max={20}
-            value={rounds}
-            onChange={(e) => setRounds(clamp(parseInt(e.target.value), 1, 20))}
-          ></input>
-          <label>Time:</label>
-          <input
-            type="time"
-            value={time}
-            onChange={(e) => setTime(e.target.value)}
-            step={60}
-          />
-          <label>Work Duration:</label>
-          <input
-            type="number"
-            min={0}
-            max={59}
-            value={minutes}
-            onChange={(e) => setMinutes(parseInt(e.target.value) || 0)}
-          />{" "}
-          min
-          <input
-            type="number"
-            min={0}
-            max={59}
-            value={15}
-            onChange={(e) => setSeconds(parseInt(e.target.value) || 0)}
-          />{" "}
-          sec
-          <p>Total seconds: {minutes * 60 + seconds}</p>
-        </div>
+    <div>
+      {status.isSetupShown ? (
+        <SetupView
+          settings={settings}
+          setSettings={setSettings}
+          setSetupShown={(value: boolean) =>
+            setStatus((prev) => ({ ...prev, isSetupShown: value }))
+          }
+        />
+      ) : (
+        <CountdownView status={status} setStatus={setStatus} />
       )}
     </div>
   );
-}
-
-function clamp(value: number, min: number, max: number) {
-  return Math.min(Math.max(value, min), max);
 }
 
 export default MainContainer;

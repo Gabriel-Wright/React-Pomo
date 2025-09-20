@@ -1,0 +1,16 @@
+interface PomodoroSettings {
+  rounds: number;
+  workTime: number;
+  breakTime: number;
+}
+
+interface SetupViewProps {
+  settings: PomodoroSettings;
+  setSettings: React.Dispatch<React.SetStateAction<PomodoroSettings>>;
+  setSetupShown: (value: boolean) => void; // only need this
+}
+function SetupView({ settings, setSettings, setSetupShown }: SetupViewProps) {
+  return <h1>{settings.rounds}</h1>;
+}
+
+export default SetupView;

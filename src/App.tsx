@@ -1,12 +1,46 @@
+import { useState } from "react";
 import Header from "./components/Header";
 import MainContainer from "./components/MainContainer";
+import {
+  DEFAULT_ROUNDS,
+  DEFAULT_BREAK_TIME,
+  DEFAULT_WORK_TIME,
+} from "./config";
+
+// Configurable values
+interface PomodoroSettings {
+  rounds: number;
+  workTime: number;
+  breakTime: number;
+}
+
+// Runtime values
+interface PomodoroStatus {
+  isSetupShown: boolean;
+  isRunning: boolean;
+  isFinished: boolean;
+  completedRounds: number;
+  workTimeRemaining: number;
+  breakTimeRemaining: number;
+}
 
 function App() {
-  // Initialise useState variables we may want here.
+  // Settings state
+  const [settings, setSettings] = useState<PomodoroSettings>({
+    rounds: DEFAULT_ROUNDS,
+    workTime: DEFAULT_WORK_TIME,
+    breakTime: DEFAULT_BREAK_TIME,
+  });
 
-  // Then in here - pass useState variables to MainContainer
-  // Depending on whether isSetup - show different pages
-  // Depending on theme selected - use different CSS reactively
+  // Status state
+  const [status, setStatus] = useState<PomodoroStatus>({
+    isSetupShown: true,
+    isRunning: false,
+    isFinished: false,
+    completedRounds: 0,
+    workTimeRemaining: DEFAULT_WORK_TIME,
+    breakTimeRemaining: DEFAULT_BREAK_TIME,
+  });
 
   //MainController can have 2 different components
   //Setup View
@@ -23,8 +57,12 @@ function App() {
   return (
     <div>
       <Header />
-
-      <MainContainer isSetup={false} />
+      <MainContainer
+        settings={settings}
+        setSettings={setSettings}
+        status={status}
+        setStatus={setStatus}
+      />
     </div>
   );
 }
