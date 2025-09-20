@@ -1,20 +1,7 @@
 import { useState, type ReactNode } from "react";
 import SetupView from "./SetupView";
 import CountdownView from "./CountdownView";
-interface PomodoroSettings {
-  rounds: number;
-  workTime: number;
-  breakTime: number;
-}
-
-interface PomodoroStatus {
-  isSetupShown: boolean;
-  isRunning: boolean;
-  isFinished: boolean;
-  completedRounds: number;
-  workTimeRemaining: number;
-  breakTimeRemaining: number;
-}
+import type { PomodoroSettings, PomodoroStatus } from "../config";
 
 interface MainContainerProps {
   settings: PomodoroSettings;

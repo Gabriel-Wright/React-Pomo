@@ -1,28 +1,13 @@
 import { useState } from "react";
 import Header from "./components/Header";
 import MainContainer from "./components/MainContainer";
+import type { PomodoroSettings, PomodoroStatus } from "./config";
+
 import {
   DEFAULT_ROUNDS,
   DEFAULT_BREAK_TIME,
   DEFAULT_WORK_TIME,
 } from "./config";
-
-// Configurable values
-interface PomodoroSettings {
-  rounds: number;
-  workTime: number;
-  breakTime: number;
-}
-
-// Runtime values
-interface PomodoroStatus {
-  isSetupShown: boolean;
-  isRunning: boolean;
-  isFinished: boolean;
-  completedRounds: number;
-  workTimeRemaining: number;
-  breakTimeRemaining: number;
-}
 
 function App() {
   // Settings state

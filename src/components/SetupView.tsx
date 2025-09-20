@@ -1,8 +1,4 @@
-interface PomodoroSettings {
-  rounds: number;
-  workTime: number;
-  breakTime: number;
-}
+import type { PomodoroSettings } from "../config";
 
 interface SetupViewProps {
   settings: PomodoroSettings;

@@ -1,11 +1,4 @@
-interface PomodoroStatus {
-  isSetupShown: boolean;
-  isRunning: boolean;
-  isFinished: boolean;
-  completedRounds: number;
-  workTimeRemaining: number;
-  breakTimeRemaining: number;
-}
+import type { PomodoroStatus } from "../config";
 
 interface CountdownViewProps {
   status: PomodoroStatus;
