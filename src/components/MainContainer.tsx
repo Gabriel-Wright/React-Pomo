@@ -27,7 +27,11 @@ function MainContainer({
           }
         />
       ) : (
-        <CountdownView status={status} setStatus={setStatus} />
+        <CountdownView
+          numRounds={settings.rounds}
+          status={status}
+          setStatus={setStatus}
+        />
       )}
     </div>
   );

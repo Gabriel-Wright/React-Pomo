@@ -7,6 +7,7 @@ import {
   DEFAULT_ROUNDS,
   DEFAULT_BREAK_TIME,
   DEFAULT_WORK_TIME,
+  DEFAULT_IS_SETUP_SHOWN,
 } from "./config";
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
 
   // Status state
   const [status, setStatus] = useState<PomodoroStatus>({
-    isSetupShown: true,
+    isSetupShown: DEFAULT_IS_SETUP_SHOWN,
     isRunning: false,
     isFinished: false,
     completedRounds: 0,
