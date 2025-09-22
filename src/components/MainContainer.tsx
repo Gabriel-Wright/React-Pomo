@@ -25,7 +25,7 @@ function MainContainer({
           setSetupShown={(value: boolean) =>
             setStatus((prev) => ({ ...prev, isSetupShown: value }))
           }
-          currentRound={status.currentRound}
+          status={status}
         />
       ) : (
         <CountdownView

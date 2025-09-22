@@ -7,32 +7,51 @@ import {
   MIN_ROUNDS,
   MIN_WORK_MINUTES,
   type PomodoroSettings,
+  type PomodoroStatus,
 } from "../config";
 import { clamp, convertSecToMinString } from "../helpers";
 import TickButton from "./Buttons/TickButton";
 import SliderInput from "./Inputs/SliderInput";
+import SettingsAlert from "./Alerts/SettingsAlert";
 
 interface SetupViewProps {
   settings: PomodoroSettings;
   setSettings: React.Dispatch<React.SetStateAction<PomodoroSettings>>;
   setSetupShown: (value: boolean) => void;
-  currentRound: number;
+  status: PomodoroStatus;
 }
 function SetupView({
   settings,
   setSettings,
   setSetupShown,
-  currentRound,
+  status,
 }: SetupViewProps) {
   const [roundInput, setRoundInput] = useState(String(settings.rounds));
+  const [showAlert, setShowAlert] = useState(
+    status.hasStarted &&
+      !status.isFinished &&
+      !localStorage.getItem("skipSettingsAlert")
+  );
 
   return (
     <div>
+      {showAlert && (
+        <SettingsAlert
+          message="Changing settings now will affect future rounds of your current session"
+          onDismiss={() => {
+            setShowAlert(false);
+          }}
+        />
+      )}
       <h1 className="countdown-header">Settings</h1>
       <div id="slider-input-list">
         <SliderInput
           label={"Rounds"}
-          min={Math.max(MIN_ROUNDS, currentRound)}
+          min={
+            !status.isFinished
+              ? Math.max(MIN_ROUNDS, status.currentRound)
+              : MIN_ROUNDS
+          }
           max={MAX_ROUNDS}
           value={settings.rounds}
           onChange={(val) => setSettings((prev) => ({ ...prev, rounds: val }))}

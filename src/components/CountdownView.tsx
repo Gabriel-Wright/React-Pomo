@@ -23,7 +23,12 @@ function CountdownView({ settings, status, setStatus }: CountdownViewProps) {
         }));
       } else {
         // All rounds done
-        setStatus((prev) => ({ ...prev, isFinished: true, isRunning: false }));
+        setStatus((prev) => ({
+          ...prev,
+          isFinished: true,
+          isRunning: false,
+          currentPhase: { ...prev.currentPhase, timeRemaining: 0 },
+        }));
       }
     } else if (status.currentPhase.name === "break") {
       // If we just finished a break, move to next work round
@@ -61,8 +66,15 @@ function CountdownView({ settings, status, setStatus }: CountdownViewProps) {
         {status.currentPhase.name.toUpperCase()}
       </h1>
       <h3 className="countdown-header">
-        Round {status.currentRound} of {settings.rounds}
-      </h3>
+        {status.isFinished ? (
+          "Pomodoro Complete"
+        ) : (
+          <>
+            Round <span>{status.currentRound}</span> of{" "}
+            <span>{settings.rounds}</span>
+          </>
+        )}
+      </h3>{" "}
       <CountdownTimer
         time={status.currentPhase.timeRemaining}
         isRunning={status.isRunning}
