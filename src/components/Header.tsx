@@ -1,5 +1,3 @@
-import Dropdown from "./Dropdown";
-
 function Header() {
   return (
     <div className="header">

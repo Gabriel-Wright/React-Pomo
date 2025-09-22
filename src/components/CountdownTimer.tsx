@@ -1,6 +1,5 @@
 // CountdownText.tsx
 import { useEffect } from "react";
-import type { PomodoroStatus } from "../config";
 import { convertNumToTimeString } from "../helpers";
 interface CountdownProps {
   time: number; // seconds

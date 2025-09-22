@@ -1,4 +1,3 @@
-import { useState, type ReactNode } from "react";
 import SetupView from "./SetupView";
 import CountdownView from "./CountdownView";
 import type { PomodoroSettings, PomodoroStatus } from "../config";

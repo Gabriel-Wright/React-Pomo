@@ -9,7 +9,7 @@ import {
   type PomodoroSettings,
   type PomodoroStatus,
 } from "../config";
-import { clamp, convertSecToMinString } from "../helpers";
+import { convertSecToMinString } from "../helpers";
 import TickButton from "./Buttons/TickButton";
 import SliderInput from "./Inputs/SliderInput";
 import SettingsAlert from "./Alerts/SettingsAlert";
@@ -26,7 +26,6 @@ function SetupView({
   setSetupShown,
   status,
 }: SetupViewProps) {
-  const [roundInput, setRoundInput] = useState(String(settings.rounds));
   const [showAlert, setShowAlert] = useState(
     status.hasStarted &&
       !status.isFinished &&
