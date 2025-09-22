@@ -57,20 +57,60 @@
 .container-buttons svg {
   border-width: 18px;
   border-radius: 10px;
-  width: 24px;   /* size of the cog */
+  width: 24px;   
   height: 24px;
-  stroke: #333;  /* color of the icon */
+  stroke: #333;  
   transition: background-color 0.3s ease-in-out;
 }
 
 .container-buttons svg:hover {
   background-color: red;
 }
+
 #settings-button,
 #tick-button {
   position: absolute;
   top: 1rem;
   right: 1rem;
+}
+
+/* Styling sliders */
+
+#slider-input-list {
+  display: flex;
+  flex-direction: column; 
+  align-items: center; 
+  gap: 1.5rem; 
+  margin: 2rem 0; 
+}
+
+.slider-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  margin: 1rem 0; 
+  width: 100%;
+  max-width: 400px; 
+}
+
+.slider-label-row {
+  display: flex;
+  justify-content: space-between; 
+  width: 100%;
+  margin-bottom: 0.5rem; 
+  font-weight: bold;
+}
+
+.slider-label {
+  /* optional styling for the label */
+}
+
+.slider-value {
+  /* optional styling for the value */
+}
+
+.slider-input input[type="range"] {
+  width: 100%;
 }
 
 
