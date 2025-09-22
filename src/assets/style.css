@@ -10,10 +10,63 @@
 }
 
 .main-container {
+  display:block;
   max-width: 50%;
   margin: 100px auto; 
   padding: 32px;
   border: 1px solid #ccc;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   border-radius: 8px;
+  font-family: sans-serif;
+  position: relative;
 }
+
+
+/* Countdown */
+
+.countdown-header {
+  text-align: center;
+}
+
+.countdown-display {
+  text-align: center;
+  padding: 50px 50px;
+}
+
+/* Buttons styling*/
+
+.buttons-tray {
+  display: flex;               
+  justify-content: space-between; 
+  gap: 1rem;                   
+  margin-top: 1rem;            
+}
+
+.container-buttons {
+  background: transparent; 
+  border: none;
+  cursor: pointer;
+
+}
+
+.container-buttons svg {
+  border-width: 18px;
+  border-radius: 10px;
+  width: 24px;   /* size of the cog */
+  height: 24px;
+  stroke: #333;  /* color of the icon */
+  transition: background-color 0.3s ease-in-out;
+}
+
+.container-buttons svg:hover {
+  background-color: red;
+}
+#settings-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+
+
+

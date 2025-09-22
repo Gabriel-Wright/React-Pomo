@@ -58,7 +58,9 @@ function SetupView({ settings, setSettings, setSetupShown }: SetupViewProps) {
           }))
         }
       />
-      <button onClick={() => setSetupShown(false)}>Back</button>
+      <button className="settings-button" onClick={() => setSetupShown(false)}>
+        Back
+      </button>
     </div>
   );
 }

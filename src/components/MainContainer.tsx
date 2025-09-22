@@ -17,7 +17,7 @@ function MainContainer({
   setStatus,
 }: MainContainerProps) {
   return (
-    <div>
+    <div className="main-container">
       {status.isSetupShown ? (
         <SetupView
           settings={settings}

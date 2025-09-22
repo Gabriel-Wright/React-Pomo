@@ -25,7 +25,7 @@ function CountdownText({ time, isRunning, onTick, onFinish }: CountdownProps) {
     return () => clearInterval(timer);
   }, [isRunning, time, onTick, onFinish]);
 
-  return <h1>{convertNumToTimeString(time)}</h1>;
+  return <h1 className="countdown-display">{convertNumToTimeString(time)}</h1>;
 }
 
 export default CountdownText;
