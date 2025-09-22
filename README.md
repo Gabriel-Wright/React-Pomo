@@ -1,69 +1,29 @@
-# React + TypeScript + Vite
+# React Pomodoro Timer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A lightweight Pomodoro timer built with React and TypeScript. Designed to be clean, simple and help visualize your productivity.
 
-Currently, two official plugins are available:
+## Base Features
+Fully functional Pomodoro timer with work and break phases.
+Automatic phase transitions with optional sound notifications.
+Responsive design: works on desktop and mobile.
+Customizable settings for:
+- Work duration
+- Break duration
+- Number of rounds
+-Start/pause, skip and reset buttons
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Future Milestones
+- Dropdown selection for different visual themes
+- Refactor current iterative pomodoro phases approach to a queue system storing upcoming pomodoro phases
+- Have a "queue" button, that displays upcoming Pomodoro stores
+- Take advantage of local storage more. E.g. Keep track of how far a user is through their Pomdoro if they close tab.
+- Add additional sounds, have more of a countdown effect
 
-## Expanding the ESLint configuration
+## Technologies
+React 19 + TypeScript – Core framework for building interactive UI components.
+Vite – Fast development server and build tool.
+CSS – Custom styles with responsive layouts and color-coded phases.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Audio Notifications
+Note this project has audio notifications. Currently I am only using .ogg files - I believe these have issues on Safari. I hope to improve them in the future.
+HTML5 <audio> element with .ogg support for cross-browser sound playback.
