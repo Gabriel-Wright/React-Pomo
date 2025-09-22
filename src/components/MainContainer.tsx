@@ -28,7 +28,7 @@ function MainContainer({
         />
       ) : (
         <CountdownView
-          numRounds={settings.rounds}
+          settings={settings}
           status={status}
           setStatus={setStatus}
         />

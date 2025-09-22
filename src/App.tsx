@@ -23,9 +23,11 @@ function App() {
     isSetupShown: DEFAULT_IS_SETUP_SHOWN,
     isRunning: false,
     isFinished: false,
-    completedRounds: 0,
-    workTimeRemaining: DEFAULT_WORK_TIME,
-    breakTimeRemaining: DEFAULT_BREAK_TIME,
+    currentRound: 1,
+    currentPhase: {
+      name: "work",
+      timeRemaining: DEFAULT_WORK_TIME,
+    },
   });
 
   //MainController can have 2 different components

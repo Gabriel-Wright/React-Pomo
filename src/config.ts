@@ -9,12 +9,17 @@ export interface PomodoroSettings {
   breakTime: number;
 }
 
+export type Phase = "work" | "break" | "finished";
+
 export interface PomodoroStatus {
   isSetupShown: boolean;
   isRunning: boolean;
   isFinished: boolean;
-  completedRounds: number;
-  workTimeRemaining: number;
-  breakTimeRemaining: number;
+  currentRound: number;
+
+  currentPhase: {
+    name: Phase;
+    timeRemaining: number;
+  };
 }
 
