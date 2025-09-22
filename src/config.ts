@@ -14,6 +14,7 @@ export type Phase = "work" | "break" | "finished";
 export interface PomodoroStatus {
   isSetupShown: boolean;
   isRunning: boolean;
+  hasStarted: boolean;
   isFinished: boolean;
   currentRound: number;
 

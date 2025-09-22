@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import type { PomodoroSettings, PomodoroStatus } from "../config";
 import CountdownTimer from "./CountdownTimer";
 
@@ -37,6 +36,7 @@ function CountdownView({ settings, status, setStatus }: CountdownViewProps) {
     // Reset back to round 1, work phase
     setStatus((prev) => ({
       ...prev,
+      hasStarted: false,
       currentRound: 1,
       currentPhase: { name: "work", timeRemaining: settings.workTime },
       isFinished: false,
@@ -44,13 +44,19 @@ function CountdownView({ settings, status, setStatus }: CountdownViewProps) {
     }));
   };
 
+  const pauseUnpause = () => {
+    setStatus((prev) => ({
+      ...prev,
+      isRunning: !prev.isRunning,
+      hasStarted: true,
+    }));
+  };
   return (
     <div>
       <h2>
         Round {status.currentRound} of {settings.rounds}–{" "}
         {status.currentPhase.name.toUpperCase()}
       </h2>
-
       <CountdownTimer
         time={status.currentPhase.timeRemaining}
         isRunning={status.isRunning}
@@ -62,15 +68,16 @@ function CountdownView({ settings, status, setStatus }: CountdownViewProps) {
         }
         onFinish={handleFinish}
       />
-
-      <button onClick={reset}>Reset</button>
-      <button
-        onClick={() =>
-          setStatus((prev) => ({ ...prev, isRunning: !prev.isRunning }))
-        }
-      >
-        {status.isRunning ? "Pause" : "Start"}
-      </button>
+      {/* Reset should only show when NOT running OR when finished */}
+      {status.hasStarted && !status.isRunning && (
+        <button onClick={reset}>Reset</button>
+      )}
+      {/* Start/Pause only show when NOT finished */}
+      {!status.isFinished && (
+        <button onClick={pauseUnpause}>
+          {status.isRunning ? "Pause" : "Start"}
+        </button>
+      )}
       <button
         onClick={() =>
           setStatus((prev) => ({

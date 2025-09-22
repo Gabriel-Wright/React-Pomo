@@ -22,6 +22,7 @@ function App() {
   const [status, setStatus] = useState<PomodoroStatus>({
     isSetupShown: DEFAULT_IS_SETUP_SHOWN,
     isRunning: false,
+    hasStarted: false,
     isFinished: false,
     currentRound: 1,
     currentPhase: {
