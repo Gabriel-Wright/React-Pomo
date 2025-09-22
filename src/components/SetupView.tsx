@@ -9,6 +9,8 @@ import {
   type PomodoroSettings,
 } from "../config";
 import { clamp, convertSecToMinString } from "../helpers";
+import TickButton from "./Buttons/TickButton";
+
 interface SetupViewProps {
   settings: PomodoroSettings;
   setSettings: React.Dispatch<React.SetStateAction<PomodoroSettings>>;
@@ -58,9 +60,7 @@ function SetupView({ settings, setSettings, setSetupShown }: SetupViewProps) {
           }))
         }
       />
-      <button className="settings-button" onClick={() => setSetupShown(false)}>
-        Back
-      </button>
+      <TickButton onClick={() => setSetupShown(false)} />
     </div>
   );
 }

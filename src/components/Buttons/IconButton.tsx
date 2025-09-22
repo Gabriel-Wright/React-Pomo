@@ -10,3 +10,5 @@ function IconButton({ children, ...props }: IconButtonProps) {
     </button>
   );
 }
+
+export default IconButton;

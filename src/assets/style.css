@@ -35,11 +35,16 @@
 
 /* Buttons styling*/
 
-.buttons-tray {
+.main-buttons {
   display: flex;               
-  justify-content: space-between; 
+  justify-content: center; 
   gap: 1rem;                   
   margin-top: 1rem;            
+}
+
+.action-buttons {
+  display: flex;
+  gap: 2rem; /* space between Play/Pause and Restart */
 }
 
 .container-buttons {
@@ -61,7 +66,8 @@
 .container-buttons svg:hover {
   background-color: red;
 }
-#settings-button {
+#settings-button,
+#tick-button {
   position: absolute;
   top: 1rem;
   right: 1rem;
