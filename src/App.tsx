@@ -9,6 +9,7 @@ import {
   DEFAULT_WORK_TIME_MINUTES,
   DEFAULT_BREAK_TIME_MINUTES,
 } from "./config";
+import GithubButton from "./components/Buttons/GithubButton";
 
 function App() {
   // Settings state
@@ -31,8 +32,11 @@ function App() {
     },
   });
 
+  const phaseStyle =
+    status.currentPhase.name === "work" ? "work-phase" : "break-phase";
+
   return (
-    <div>
+    <div className={`app-wrapper ${phaseStyle}`}>
       <Header />
       <MainContainer
         settings={settings}
@@ -40,6 +44,7 @@ function App() {
         status={status}
         setStatus={setStatus}
       />
+      <GithubButton id="github-link" />
     </div>
   );
 }

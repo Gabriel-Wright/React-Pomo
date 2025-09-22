@@ -1,5 +1,24 @@
-.title {
-    color: red;
+/* App wrapper styles */
+.app-wrapper {
+  height:100vh;
+  font-family: 'Courier New', Courier, monospace;
+}
+.app-wrapper.work-phase {
+  background: #C75538;
+  color: white;
+}
+
+.app-wrapper.break-phase {
+  background: #872FD0;
+  color: white;
+}
+
+.app-wrapper.work-phase .main-container {
+  background: #863a26;
+}
+
+.app-wrapper.break-phase .main-container {
+  background: #9A51D8;
 }
 
 .header {
@@ -14,13 +33,16 @@
   max-width: 50%;
   margin: 100px auto; 
   padding: 32px;
-  border: 1px solid #ccc;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  border-radius: 8px;
-  font-family: sans-serif;
+  border-radius: 15px;
   position: relative;
 }
 
+@media (max-width: 768px) {
+  .main-container {
+    max-width: 80%; 
+  }
+}
 
 /* Countdown */
 
@@ -55,16 +77,16 @@
 }
 
 .container-buttons svg {
-  border-width: 18px;
-  border-radius: 10px;
+  border-width: 5px;
+  border-radius: 5px;
   width: 24px;   
   height: 24px;
-  stroke: #333;  
+  stroke: white;  
   transition: background-color 0.3s ease-in-out;
 }
 
 .container-buttons svg:hover {
-  background-color: red;
+  background-color: rgba(128,128,128,0.5);
 }
 
 #settings-button,
@@ -72,6 +94,28 @@
   position: absolute;
   top: 1rem;
   right: 1rem;
+}
+
+#github-link {
+  display:block;
+  margin: 0 auto;
+}
+
+#github-link button:hover {
+  background-color: transparent;
+}
+
+#github-link svg {
+  height: 48px;
+  width: 48px;
+  overflow: visible;
+  color: white;
+  transition: color 0.3s ease-in-out;
+}
+
+#github-link svg:hover {
+  background-color: transparent;
+  color:transparent;
 }
 
 /* Styling sliders */
@@ -121,11 +165,11 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* dim background */
+  background-color: rgba(0, 0, 0, 0.5); 
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999; /* on top of everything */
+  z-index: 999; 
 }
 
 .alert-content {
