@@ -5,17 +5,17 @@ import type { PomodoroSettings, PomodoroStatus } from "./config";
 
 import {
   DEFAULT_ROUNDS,
-  DEFAULT_BREAK_TIME,
-  DEFAULT_WORK_TIME,
   DEFAULT_IS_SETUP_SHOWN,
+  DEFAULT_WORK_TIME_MINUTES,
+  DEFAULT_BREAK_TIME_MINUTES,
 } from "./config";
 
 function App() {
   // Settings state
   const [settings, setSettings] = useState<PomodoroSettings>({
     rounds: DEFAULT_ROUNDS,
-    workTime: DEFAULT_WORK_TIME,
-    breakTime: DEFAULT_BREAK_TIME,
+    workTime: DEFAULT_WORK_TIME_MINUTES * 60,
+    breakTime: DEFAULT_BREAK_TIME_MINUTES * 60,
   });
 
   // Status state
@@ -27,21 +27,9 @@ function App() {
     currentRound: 1,
     currentPhase: {
       name: "work",
-      timeRemaining: DEFAULT_WORK_TIME,
+      timeRemaining: DEFAULT_WORK_TIME_MINUTES * 60,
     },
   });
-
-  //MainController can have 2 different components
-  //Setup View
-  // Rounds
-  // Work Time
-  // Break Time
-  // Done
-
-  //Timer View
-  //COG in top right of view to go back to SetupView
-  //Start
-  //Pause
 
   return (
     <div>
