@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import MainContainer from "./components/MainContainer";
 import type { PomodoroSettings, PomodoroStatus } from "./config";
@@ -10,6 +10,7 @@ import {
   DEFAULT_BREAK_TIME_MINUTES,
 } from "./config";
 import GithubButton from "./components/Buttons/GithubButton";
+import { convertNumToTimeString } from "./helpers";
 
 function App() {
   // Settings state
@@ -34,6 +35,12 @@ function App() {
 
   const phaseStyle =
     status.currentPhase.name === "work" ? "work-phase" : "break-phase";
+
+  useEffect(() => {
+    document.title = `${status.currentPhase.name.toUpperCase()} – ${convertNumToTimeString(
+      status.currentPhase.timeRemaining
+    )}`;
+  }, [status.currentPhase]);
 
   return (
     <div className={`app-wrapper ${phaseStyle}`}>
