@@ -13,6 +13,7 @@ Customizable settings for:
 -Start/pause, skip and reset buttons
 
 ## Future Milestones
+- Improved test suite
 - Dropdown selection for different visual themes
 - Refactor current iterative pomodoro phases approach to a queue system storing upcoming pomodoro phases
 - Have a "queue" button, that displays upcoming Pomodoro stores
