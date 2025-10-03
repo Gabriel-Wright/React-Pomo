@@ -1,9 +1,10 @@
 import type { PomodoroSettings, PomodoroStatus } from "../config";
+import { buildPhaseQueue } from "../helpers/buildPhaseQueue";
 import PlayPauseButton from "./Buttons/PlayPauseButton";
 import RestartButton from "./Buttons/RestartButton";
 import SettingsButton from "./Buttons/SettingsButton";
 import SkipButton from "./Buttons/SkipButton";
-import CountdownTimer from "./CountdownTimer";
+import CountdownText from "./CountdownTimer";
 
 interface CountdownViewProps {
   settings: PomodoroSettings;
@@ -14,34 +15,24 @@ function CountdownView({ settings, status, setStatus }: CountdownViewProps) {
   const timerSound = new Audio(
     import.meta.env.BASE_URL + "/sound/confirmation_002.ogg"
   );
+
   const handleFinish = () => {
-    timerSound.play().catch((err) => console.log("Audio play error:", err)); // Transition to next phase when current one ends
-    if (status.currentPhase.name === "work") {
-      // If we just finished a work session
-      if (status.currentRound < settings.rounds) {
-        setStatus((prev) => ({
-          ...prev,
-          currentPhase: { name: "break", timeRemaining: settings.breakTime },
-          isRunning: true, // auto-start break
-        }));
-      } else {
-        // All rounds done
-        setStatus((prev) => ({
-          ...prev,
-          isFinished: true,
-          isRunning: false,
-          currentPhase: { ...prev.currentPhase, timeRemaining: 0 },
-        }));
-      }
-    } else if (status.currentPhase.name === "break") {
-      // If we just finished a break, move to next work round
-      setStatus((prev) => ({
+    setStatus((prev) => {
+      const nextIndex = prev.phaseIndex + 1;
+      const isFinished = nextIndex >= prev.phaseQueue.length;
+      return {
         ...prev,
-        currentRound: prev.currentRound + 1,
-        currentPhase: { name: "work", timeRemaining: settings.workTime },
-        isRunning: true, // auto-start next round
-      }));
-    }
+        phaseIndex: isFinished ? prev.phaseIndex : nextIndex,
+        //Iterate round count if there is a break
+        currentRound:
+          status.phaseQueue[status.phaseIndex].name === "break"
+            ? prev.currentRound + 1
+            : prev.currentRound,
+        isRunning: !isFinished,
+        isFinished,
+        hasStarted: true,
+      };
+    });
   };
 
   const reset = () => {
@@ -50,7 +41,13 @@ function CountdownView({ settings, status, setStatus }: CountdownViewProps) {
       ...prev,
       hasStarted: false,
       currentRound: 1,
-      currentPhase: { name: "work", timeRemaining: settings.workTime },
+      phaseIndex: 0,
+      phaseQueue: buildPhaseQueue(
+        settings.rounds,
+        settings.workTime,
+        settings.breakTime,
+        settings.warmupTime
+      ),
       isFinished: false,
       isRunning: false,
     }));
@@ -63,10 +60,11 @@ function CountdownView({ settings, status, setStatus }: CountdownViewProps) {
       hasStarted: true,
     }));
   };
+
   return (
     <div>
       <h1 className="countdown-header">
-        {status.currentPhase.name.toUpperCase()}
+        {status.phaseQueue[status.phaseIndex].name.toUpperCase()}
       </h1>
       <h3 className="countdown-header">
         {status.isFinished ? (
@@ -78,14 +76,18 @@ function CountdownView({ settings, status, setStatus }: CountdownViewProps) {
           </>
         )}
       </h3>{" "}
-      <CountdownTimer
-        time={status.currentPhase.timeRemaining}
+      <CountdownText
+        time={status.phaseQueue[status.phaseIndex].timeRemaining}
         isRunning={status.isRunning}
         onTick={(newTime) =>
-          setStatus((prev) => ({
-            ...prev,
-            currentPhase: { ...prev.currentPhase, timeRemaining: newTime },
-          }))
+          setStatus((prev) => {
+            const newQueue = [...prev.phaseQueue]; // shallow copy
+            newQueue[prev.phaseIndex] = {
+              ...newQueue[prev.phaseIndex],
+              timeRemaining: newTime,
+            };
+            return { ...prev, phaseQueue: newQueue };
+          })
         }
         onFinish={handleFinish}
       />

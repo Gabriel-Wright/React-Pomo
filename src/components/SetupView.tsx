@@ -9,7 +9,7 @@ import {
   type PomodoroSettings,
   type PomodoroStatus,
 } from "../config";
-import { convertSecToMinString } from "../helpers";
+import { convertSecToMinString } from "../helpers/helpers";
 import TickButton from "./Buttons/TickButton";
 import SliderInput from "./Inputs/SliderInput";
 import SettingsAlert from "./Alerts/SettingsAlert";

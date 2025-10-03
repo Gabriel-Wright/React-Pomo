@@ -1,4 +1,4 @@
-import { convertNumToTimeString, convertSecToMinString } from "../helpers";
+import { convertNumToTimeString, convertSecToMinString } from "../helpers/helpers";
 
 describe("convertNumToTimeString", () => {
   test("converts 65 seconds to '01:05'", () => {

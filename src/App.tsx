@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import MainContainer from "./components/MainContainer";
-import type { PomodoroSettings, PomodoroStatus } from "./config";
+import type { Phase, PomodoroSettings, PomodoroStatus } from "./config";
 
 import {
   DEFAULT_ROUNDS,
   DEFAULT_IS_SETUP_SHOWN,
   DEFAULT_WORK_TIME_MINUTES,
   DEFAULT_BREAK_TIME_MINUTES,
+  DEFAULT_WARMUP_TIME_MINUTES,
 } from "./config";
 import GithubButton from "./components/Buttons/GithubButton";
-import { convertNumToTimeString } from "./helpers";
+import { convertNumToTimeString } from "./helpers/helpers";
+import { buildPhaseQueue } from "./helpers/buildPhaseQueue";
 
 function App() {
   // Settings state
@@ -18,6 +20,7 @@ function App() {
     rounds: DEFAULT_ROUNDS,
     workTime: DEFAULT_WORK_TIME_MINUTES * 60,
     breakTime: DEFAULT_BREAK_TIME_MINUTES * 60,
+    warmupTime: DEFAULT_WARMUP_TIME_MINUTES * 60,
   });
 
   // Status state
@@ -27,20 +30,28 @@ function App() {
     hasStarted: false,
     isFinished: false,
     currentRound: 1,
-    currentPhase: {
-      name: "work",
-      timeRemaining: DEFAULT_WORK_TIME_MINUTES * 60,
-    },
+    phaseQueue: buildPhaseQueue(
+      DEFAULT_ROUNDS,
+      DEFAULT_WORK_TIME_MINUTES * 60,
+      DEFAULT_BREAK_TIME_MINUTES * 60,
+      DEFAULT_WARMUP_TIME_MINUTES * 60
+    ),
+    phaseIndex: 0,
   });
 
+  //Currently only two styles for entire thing
   const phaseStyle =
-    status.currentPhase.name === "work" ? "work-phase" : "break-phase";
+    status.phaseQueue[status.phaseIndex].name === "work"
+      ? "work-phase"
+      : "break-phase";
 
   useEffect(() => {
-    document.title = `${status.currentPhase.name.toUpperCase()} – ${convertNumToTimeString(
-      status.currentPhase.timeRemaining
+    document.title = `${status.phaseQueue[
+      status.phaseIndex
+    ].name.toUpperCase()} – ${convertNumToTimeString(
+      status.phaseQueue[status.phaseIndex].timeRemaining
     )}`;
-  }, [status.currentPhase]);
+  }, [status.phaseQueue[status.phaseIndex]]);
 
   return (
     <div className={`app-wrapper ${phaseStyle}`}>

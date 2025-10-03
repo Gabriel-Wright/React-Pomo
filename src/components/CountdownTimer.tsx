@@ -1,6 +1,6 @@
 // CountdownText.tsx
 import { useEffect } from "react";
-import { convertNumToTimeString } from "../helpers";
+import { convertNumToTimeString } from "../helpers/helpers";
 interface CountdownProps {
   time: number; // seconds
   isRunning: boolean;
