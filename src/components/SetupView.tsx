@@ -2,9 +2,11 @@ import { useState } from "react";
 import {
   MAX_BREAK_MINUTES,
   MAX_ROUNDS,
+  MAX_WARMUP_MINUTES,
   MAX_WORK_MINUTES,
   MIN_BREAK_MINUTES,
   MIN_ROUNDS,
+  MIN_WARMUP_MINUTES,
   MIN_WORK_MINUTES,
   type PomodoroSettings,
   type PomodoroStatus,
@@ -13,6 +15,7 @@ import { convertSecToMinString } from "../helpers";
 import TickButton from "./Buttons/TickButton";
 import SliderInput from "./Inputs/SliderInput";
 import SettingsAlert from "./Alerts/SettingsAlert";
+import CheckBoxInput from "./Inputs/CheckBoxInput";
 
 interface SetupViewProps {
   settings: PomodoroSettings;
@@ -74,7 +77,27 @@ function SetupView({
           onChange={(val) =>
             setSettings((prev) => ({ ...prev, breakTime: val * 60 }))
           }
-        />{" "}
+        />
+        <CheckBoxInput
+          label="Warmup Phase? "
+          isChecked={settings.warmupOn}
+          onChange={(val) =>
+            setSettings((prev) => ({ ...prev, warmupOn: val }))
+          }
+        />
+
+        {settings.warmupOn ? (
+          <SliderInput
+            label="Warmup Time"
+            min={MIN_WARMUP_MINUTES}
+            max={MAX_WARMUP_MINUTES}
+            value={settings.warmupTime / 60}
+            displayValue={convertSecToMinString(settings.warmupTime)}
+            onChange={(val) =>
+              setSettings((prev) => ({ ...prev, warmupTime: val * 60 }))
+            }
+          />
+        ) : null}
       </div>
       <TickButton onClick={() => setSetupShown(false)} />
     </div>

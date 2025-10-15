@@ -8,6 +8,7 @@ import {
   DEFAULT_IS_SETUP_SHOWN,
   DEFAULT_WORK_TIME_MINUTES,
   DEFAULT_BREAK_TIME_MINUTES,
+  DEFAULT_WARMUP_TIME_MINUTES,
 } from "./config";
 import GithubButton from "./components/Buttons/GithubButton";
 import { convertNumToTimeString } from "./helpers";
@@ -18,9 +19,11 @@ function App() {
     rounds: DEFAULT_ROUNDS,
     workTime: DEFAULT_WORK_TIME_MINUTES * 60,
     breakTime: DEFAULT_BREAK_TIME_MINUTES * 60,
+    warmupOn: false,
+    warmupTime: DEFAULT_WARMUP_TIME_MINUTES * 60,
   });
 
-  // Status state
+  // Default Status state
   const [status, setStatus] = useState<PomodoroStatus>({
     isSetupShown: DEFAULT_IS_SETUP_SHOWN,
     isRunning: false,
@@ -51,7 +54,7 @@ function App() {
         status={status}
         setStatus={setStatus}
       />
-      <GithubButton id="github-link" />
+      {status.isSetupShown ? null : <GithubButton id="github-link" />}
     </div>
   );
 }
