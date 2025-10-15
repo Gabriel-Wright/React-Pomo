@@ -119,21 +119,23 @@ function CountdownView({ settings, status, setStatus }: CountdownViewProps) {
         <div className="action-buttons">
           {/* Reset should only show when paused, but has started OR */}
           {status.hasStarted && !status.isRunning && (
-            <RestartButton onClick={reset} />
+            <RestartButton tooltip="Restart Pomodoro" onClick={reset} />
           )}
           {/* Start/Pause only show when NOT finished */}
           {!status.isFinished && (
             <PlayPauseButton
+              tooltip={status.isRunning ? "Pause" : "Play"}
               isRunning={status.isRunning}
               onClick={pauseUnpause}
             />
           )}
           {/*Skip show only show when paused, has started, and isn't finished*/}
           {status.hasStarted && !status.isFinished && !status.isRunning && (
-            <SkipButton onClick={handleFinish} />
+            <SkipButton tooltip="Skip Phase" onClick={handleFinish} />
           )}
         </div>
         <SettingsButton
+          tooltip="Open Settings"
           onClick={() =>
             setStatus((prev) => ({
               ...prev,
@@ -141,7 +143,7 @@ function CountdownView({ settings, status, setStatus }: CountdownViewProps) {
               isSetupShown: true,
             }))
           }
-        />{" "}
+        />
       </div>
     </div>
   );

@@ -16,6 +16,7 @@ import TickButton from "./Buttons/TickButton";
 import SliderInput from "./Inputs/SliderInput";
 import SettingsAlert from "./Alerts/SettingsAlert";
 import CheckBoxInput from "./Inputs/CheckBoxInput";
+import XButton from "./Buttons/XButton";
 
 interface SetupViewProps {
   settings: PomodoroSettings;
@@ -35,6 +36,9 @@ function SetupView({
       !localStorage.getItem("skipSettingsAlert")
   );
 
+  const [tempSettings, setTempSettings] = useState<PomodoroSettings>({
+    ...settings,
+  });
   return (
     <div>
       {showAlert && (
@@ -55,53 +59,75 @@ function SetupView({
               : MIN_ROUNDS
           }
           max={MAX_ROUNDS}
-          value={settings.rounds}
-          onChange={(val) => setSettings((prev) => ({ ...prev, rounds: val }))}
+          value={tempSettings.rounds}
+          onChange={(val) => {
+            setTempSettings((prev) => ({ ...prev, rounds: val }));
+          }}
         />
         <SliderInput
           label={"Work Time"}
           min={MIN_WORK_MINUTES}
           max={MAX_WORK_MINUTES}
-          value={settings.workTime / 60}
-          displayValue={convertSecToMinString(settings.workTime)}
+          value={tempSettings.workTime / 60}
+          displayValue={convertSecToMinString(tempSettings.workTime)}
           onChange={(val) =>
-            setSettings((prev) => ({ ...prev, workTime: val * 60 }))
+            setTempSettings((prev) => ({ ...prev, workTime: val * 60 }))
           }
         />
         <SliderInput
           label="Break Time"
           min={MIN_BREAK_MINUTES}
           max={MAX_BREAK_MINUTES}
-          value={settings.breakTime / 60}
-          displayValue={convertSecToMinString(settings.breakTime)}
+          value={tempSettings.breakTime / 60}
+          displayValue={convertSecToMinString(tempSettings.breakTime)}
           onChange={(val) =>
-            setSettings((prev) => ({ ...prev, breakTime: val * 60 }))
+            setTempSettings((prev) => ({ ...prev, breakTime: val * 60 }))
           }
         />
         <CheckBoxInput
           label="Warmup Phase? "
-          isChecked={settings.warmupOn}
+          isChecked={tempSettings.warmupOn}
           onChange={(val) =>
-            setSettings((prev) => ({ ...prev, warmupOn: val }))
+            setTempSettings((prev) => ({ ...prev, warmupOn: val }))
           }
         />
 
-        {settings.warmupOn ? (
+        {tempSettings.warmupOn ? (
           <SliderInput
             label="Warmup Time"
             min={MIN_WARMUP_MINUTES}
             max={MAX_WARMUP_MINUTES}
-            value={settings.warmupTime / 60}
-            displayValue={convertSecToMinString(settings.warmupTime)}
+            value={tempSettings.warmupTime / 60}
+            displayValue={convertSecToMinString(tempSettings.warmupTime)}
             onChange={(val) =>
-              setSettings((prev) => ({ ...prev, warmupTime: val * 60 }))
+              setTempSettings((prev) => ({ ...prev, warmupTime: val * 60 }))
             }
           />
         ) : null}
       </div>
-      <TickButton onClick={() => setSetupShown(false)} />
+      <XButton
+        id="x-settings-button"
+        tooltip="Do not apply settings"
+        onClick={() => {
+          setSetupShown(false);
+        }}
+      />
+      <TickButton
+        id="settings-button"
+        tooltip="Apply settings"
+        onClick={() => {
+          applyTempSettings(tempSettings, setSettings);
+          setSetupShown(false);
+        }}
+      />
     </div>
   );
 }
 
+function applyTempSettings(
+  tempSettings: PomodoroSettings,
+  setSettings: React.Dispatch<React.SetStateAction<PomodoroSettings>>
+) {
+  setSettings(tempSettings);
+}
 export default SetupView;

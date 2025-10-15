@@ -1,7 +1,6 @@
-import IconButton from "./IconButton";
+import IconButton, { type IconButtonProps } from "./IconButton";
 
-interface SkipButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+interface SkipButtonProps extends IconButtonProps {}
 
 function SkipButton({ ...props }: SkipButtonProps) {
   return (
