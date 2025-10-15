@@ -1,14 +1,20 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 /* App wrapper styles */
 .app-wrapper {
-  height:100vh;
+  min-height:100vh;
   font-family: 'Courier New', Courier, monospace;
 }
-.app-wrapper.work-phase {
+.work-phase, .work-phase body {
   background: #C75538;
   color: white;
 }
 
-.app-wrapper.break-phase {
+.break-phase, .break-phase body {
   background: #872FD0;
   color: white;
 }

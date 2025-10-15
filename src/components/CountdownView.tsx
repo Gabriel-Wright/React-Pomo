@@ -11,49 +11,75 @@ interface CountdownViewProps {
   setStatus: React.Dispatch<React.SetStateAction<PomodoroStatus>>;
 }
 function CountdownView({ settings, status, setStatus }: CountdownViewProps) {
-  const timerSound = new Audio(
-    import.meta.env.BASE_URL + "/sound/confirmation_002.ogg"
-  );
+  // const timerSound = new Audio(
+  //   import.meta.env.BASE_URL + "/sound/confirmation_002.ogg"
+  // );
   const handleFinish = () => {
-    timerSound.play().catch((err) => console.log("Audio play error:", err)); // Transition to next phase when current one ends
-    if (status.currentPhase.name === "work") {
-      // If we just finished a work session
-      if (status.currentRound < settings.rounds) {
+    // timerSound.play().catch((err) => console.log("Audio play error:", err)); // Moving audio play to countdown timer
+    switch (status.currentPhase.name) {
+      case "warmup":
         setStatus((prev) => ({
           ...prev,
-          currentPhase: { name: "break", timeRemaining: settings.breakTime },
-          isRunning: true, // auto-start break
+          currentPhase: { name: "work", timeRemaining: settings.workTime },
+          isRunning: true, // auto-start work phase after warmup
+          hasStarted: true,
         }));
-      } else {
-        // All rounds done
+        break;
+      case "work":
+        if (status.currentRound < settings.rounds) {
+          setStatus((prev) => ({
+            ...prev,
+            currentPhase: { name: "break", timeRemaining: settings.breakTime },
+            isRunning: true, // auto-start break
+          }));
+        } else {
+          // All rounds done
+          setStatus((prev) => ({
+            ...prev,
+            isFinished: true,
+            isRunning: false,
+            currentPhase: { ...prev.currentPhase, timeRemaining: 0 },
+          }));
+        }
+        break;
+      case "break":
+        // If we just finished a break, move to next work round
         setStatus((prev) => ({
           ...prev,
-          isFinished: true,
-          isRunning: false,
-          currentPhase: { ...prev.currentPhase, timeRemaining: 0 },
+          currentRound: prev.currentRound + 1,
+          currentPhase: { name: "work", timeRemaining: settings.workTime },
+          isRunning: true, // auto-start next round
         }));
-      }
-    } else if (status.currentPhase.name === "break") {
-      // If we just finished a break, move to next work round
-      setStatus((prev) => ({
-        ...prev,
-        currentRound: prev.currentRound + 1,
-        currentPhase: { name: "work", timeRemaining: settings.workTime },
-        isRunning: true, // auto-start next round
-      }));
+        break;
+
+      default:
+        break;
     }
   };
 
   const reset = () => {
-    // Reset back to round 1, work phase
-    setStatus((prev) => ({
-      ...prev,
-      hasStarted: false,
-      currentRound: 1,
-      currentPhase: { name: "work", timeRemaining: settings.workTime },
-      isFinished: false,
-      isRunning: false,
-    }));
+    if (settings.warmupOn) {
+      // If warmup is on, start with warmup phase
+      setStatus((prev) => ({
+        ...prev,
+        hasStarted: false,
+        currentRound: 1,
+        currentPhase: { name: "warmup", timeRemaining: settings.warmupTime },
+        isFinished: false,
+        isRunning: false,
+      }));
+      return;
+    } else {
+      // Reset back to round 1, work phase if in workphase
+      setStatus((prev) => ({
+        ...prev,
+        hasStarted: false,
+        currentRound: 1,
+        currentPhase: { name: "work", timeRemaining: settings.workTime },
+        isFinished: false,
+        isRunning: false,
+      }));
+    }
   };
 
   const pauseUnpause = () => {
