@@ -1,7 +1,6 @@
-import IconButton from "./IconButton";
+import IconButton, { type IconButtonProps } from "./IconButton";
 
-interface SettingsButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+interface SettingsButtonProps extends IconButtonProps {}
 
 function SettingsButton({ ...props }: SettingsButtonProps) {
   return (

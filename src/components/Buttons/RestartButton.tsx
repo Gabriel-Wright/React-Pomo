@@ -1,7 +1,6 @@
-import IconButton from "./IconButton";
+import IconButton, { type IconButtonProps } from "./IconButton";
 
-interface RestartButtonprops
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+interface RestartButtonprops extends IconButtonProps {}
 
 function RestartButton({ ...props }: RestartButtonprops) {
   return (

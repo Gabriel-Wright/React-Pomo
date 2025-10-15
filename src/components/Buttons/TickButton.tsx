@@ -1,11 +1,10 @@
-import IconButton from "./IconButton";
+import IconButton, { type IconButtonProps } from "./IconButton";
 
-interface TickButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+interface TickButtonProps extends IconButtonProps {}
 
 function TickButton({ ...props }: TickButtonProps) {
   return (
-    <IconButton id="settings-button" {...props}>
+    <IconButton {...props}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

@@ -102,6 +102,12 @@ html, body {
   right: 1rem;
 }
 
+#x-settings-button {
+  position: absolute;
+  top: 3rem;
+  right: 1rem;
+}
+
 #github-link {
   display:block;
   margin: 0 auto;

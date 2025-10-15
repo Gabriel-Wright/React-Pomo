@@ -1,7 +1,6 @@
-import IconButton from "./IconButton";
+import IconButton, { type IconButtonProps } from "./IconButton";
 
-interface PlayPauseButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface PlayPauseButtonProps extends IconButtonProps {
   isRunning: boolean;
 }
 
