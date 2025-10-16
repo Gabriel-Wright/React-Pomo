@@ -10,23 +10,63 @@ html, body {
   font-family: 'Courier New', Courier, monospace;
 }
 .work-phase, .work-phase body {
-  background: #C75538;
+  background: var(--work-bg);
   color: white;
 }
 
 .break-phase, .break-phase body {
-  background: #872FD0;
+  background: var(--break-bg);
+  color: white;
+}
+
+.warmup-phase, .warmup-phase body {
+  background: var(--warmup-bg);
   color: white;
 }
 
 .app-wrapper.work-phase .main-container {
-  background: #863a26;
+  background: var(--work-main-bg);
 }
 
 .app-wrapper.break-phase .main-container {
-  background: #9A51D8;
+  background: var(--break-main-bg);
 }
 
+.app-wrapper.warmup-phase .main-container {
+  background: var(--warmup-main-bg);
+}
+
+/* Background Themes */
+
+.theme-1 {
+  --work-bg: #C75538;
+  --break-bg: #872FD0;
+  --warmup-bg: #37c850;
+
+  --work-main-bg: #863a26;
+  --break-main-bg: #9A51D8;
+  --warmup-main-bg: #248435;
+}
+
+.theme-2 {
+  --work-bg: #41bea7;
+  --break-bg: #b749c4;
+  --warmup-bg: #c0ae3f;
+
+  --work-main-bg: #3aa99e;
+  --break-main-bg: #a138ad;
+  --warmup-main-bg: #9f9134;
+}
+
+.theme-3 {
+  --work-bg: #de2157;
+  --break-bg: #2257dd;
+  --warmup-bg: #5bdb24;
+
+  --work-main-bg: #ac123a;
+  --break-main-bg: #1940a4;
+  --warmup-main-bg: #3ba415;
+}
 .header {
   display: flex;
   justify-content: space-between;

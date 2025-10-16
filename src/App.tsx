@@ -21,6 +21,7 @@ function App() {
     breakTime: DEFAULT_BREAK_TIME_MINUTES * 60,
     warmupOn: false,
     warmupTime: DEFAULT_WARMUP_TIME_MINUTES * 60,
+    theme: 3,
   });
 
   // Default Status state
@@ -36,8 +37,12 @@ function App() {
     },
   });
 
-  const phaseStyle =
-    status.currentPhase.name === "work" ? "work-phase" : "break-phase";
+  // const phaseStyle =
+  //   status.currentPhase.name === "work" ? "work-phase" : "break-phase";
+
+  const appClass = `app-wrapper theme-${settings.theme} ${status.currentPhase.name}-phase`;
+
+  // const phaseStyle = SetStyle(status, settings);
 
   useEffect(() => {
     document.title = `${status.currentPhase.name.toUpperCase()} – ${convertNumToTimeString(
@@ -46,7 +51,7 @@ function App() {
   }, [status.currentPhase]);
 
   return (
-    <div className={`app-wrapper ${phaseStyle}`}>
+    <div className={`app-wrapper ${appClass}`}>
       <Header />
       <MainContainer
         settings={settings}

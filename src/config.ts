@@ -17,6 +17,7 @@ export interface PomodoroSettings {
   breakTime: number;
   warmupOn: boolean;
   warmupTime: number;
+  theme: 1 | 2 | 3;
 }
 
 export type Phase = "warmup" | "work" | "break" | "finished";
