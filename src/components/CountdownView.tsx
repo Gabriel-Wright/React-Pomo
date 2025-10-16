@@ -11,11 +11,7 @@ interface CountdownViewProps {
   setStatus: React.Dispatch<React.SetStateAction<PomodoroStatus>>;
 }
 function CountdownView({ settings, status, setStatus }: CountdownViewProps) {
-  // const timerSound = new Audio(
-  //   import.meta.env.BASE_URL + "/sound/confirmation_002.ogg"
-  // );
   const handleFinish = () => {
-    // timerSound.play().catch((err) => console.log("Audio play error:", err)); // Moving audio play to countdown timer
     switch (status.currentPhase.name) {
       case "warmup":
         setStatus((prev) => ({
