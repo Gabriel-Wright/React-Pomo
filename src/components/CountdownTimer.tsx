@@ -9,11 +9,28 @@ interface CountdownProps {
 }
 
 function CountdownText({ time, isRunning, onTick, onFinish }: CountdownProps) {
+  const timerCountdownSound = new Audio(
+    import.meta.env.BASE_URL + "/sound/countdown321.wav"
+  );
+
+  const timerCountdownFinish = new Audio(
+    import.meta.env.BASE_URL + "/sound/countdownGo.wav"
+  );
+
   useEffect(() => {
     if (!isRunning) return;
 
     const timer = setInterval(() => {
+      if (time == 3 || time == 2 || time == 1) {
+        timerCountdownSound
+          .play()
+          .catch((err) => console.log("Audio play error:", err));
+      }
       if (time <= 0) {
+        timerCountdownFinish
+          .play()
+          .catch((err) => console.log("Audio play error:", err));
+
         clearInterval(timer);
         onFinish();
       } else {
