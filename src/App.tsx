@@ -12,6 +12,7 @@ import {
 } from "./config";
 import GithubButton from "./components/Buttons/GithubButton";
 import { convertNumToTimeString } from "./helpers";
+import Dropdown from "./components/ThemeDropdown/ThemeDropdown";
 
 function App() {
   // Settings state
@@ -21,7 +22,7 @@ function App() {
     breakTime: DEFAULT_BREAK_TIME_MINUTES * 60,
     warmupOn: false,
     warmupTime: DEFAULT_WARMUP_TIME_MINUTES * 60,
-    theme: 3,
+    theme: 1,
   });
 
   // Default Status state
