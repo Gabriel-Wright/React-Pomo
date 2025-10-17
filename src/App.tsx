@@ -12,6 +12,7 @@ import {
 } from "./config";
 import GithubButton from "./components/Buttons/GithubButton";
 import { convertNumToTimeString } from "./helpers";
+import Dropdown from "./components/ThemeDropdown/ThemeDropdown";
 
 function App() {
   // Settings state
