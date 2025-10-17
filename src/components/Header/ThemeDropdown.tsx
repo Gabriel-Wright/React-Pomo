@@ -19,6 +19,7 @@ const ThemeDropdown = ({ settings, setSettings }: ThemeDropdownProps) => {
             workBg={color.workBg}
             breakBg={color.breakBg}
             onClick={() => setSettings((prev) => ({ ...prev, theme: themeId }))}
+            active={settings.theme === themeId}
           />
         );
       })}{" "}
