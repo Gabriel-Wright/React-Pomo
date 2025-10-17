@@ -75,6 +75,14 @@ html, body {
   gap: 4px;
 }
 
+.dropdown-item.active-theme {
+  /* outline: 2px solid white;
+  border-radius: 15px; */
+  /* Unsure how to style this for now */
+}
+
+
+
 .dropdown-item:hover {
   border-radius: 15px;
   background-color: rgba(128,128,128,0.5);
