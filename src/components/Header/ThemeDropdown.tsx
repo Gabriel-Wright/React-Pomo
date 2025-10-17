@@ -15,7 +15,6 @@ const ThemeDropdown = ({ settings, setSettings }: ThemeDropdownProps) => {
         return (
           <ThemeItem
             key={themeId}
-            themeId={themeId}
             workBg={color.workBg}
             breakBg={color.breakBg}
             onClick={() => setSettings((prev) => ({ ...prev, theme: themeId }))}
