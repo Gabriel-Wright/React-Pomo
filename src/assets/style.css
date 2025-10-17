@@ -24,18 +24,22 @@ html, body {
   color: white;
 }
 
-.app-wrapper.work-phase .main-container {
-  background: var(--work-main-bg);
+.app-wrapper.work-phase {
+  --main-bg: var(--work-main-bg);
 }
 
-.app-wrapper.break-phase .main-container {
-  background: var(--break-main-bg);
+.app-wrapper.break-phase {
+  --main-bg: var(--break-main-bg);
 }
 
-.app-wrapper.warmup-phase .main-container {
-  background: var(--warmup-main-bg);
+.app-wrapper.warmup-phase {
+  --main-bg: var(--warmup-main-bg);
 }
 
+.app-wrapper .main-container,
+.app-wrapper .theme-dropdown-menu {
+  background: var(--main-bg);
+}
 /* Header nav bar */
 
 .header {
@@ -45,43 +49,65 @@ html, body {
   padding: 16px 32px;
 }
 
+.dropdown {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
 .dropdown-btn {
   max-width: 100%;
   height: 100%;
   display: flex;
   justify-content: flex-end;
+  cursor: pointer;
 }
 
-/* Background Themes */
-
-.theme-1 {
-  --work-bg: #C75538;
-  --break-bg: #872FD0;
-  --warmup-bg: #37c850;
-
-  --work-main-bg: #863a26;
-  --break-main-bg: #9A51D8;
-  --warmup-main-bg: #248435;
+.dropdown-btn:hover {
+  text-decoration: underline;
 }
 
-.theme-2 {
-  --work-bg: #41bea7;
-  --break-bg: #b749c4;
-  --warmup-bg: #c0ae3f;
-
-  --work-main-bg: #3aa99e;
-  --break-main-bg: #a138ad;
-  --warmup-main-bg: #9f9134;
+.dropdown-item {
+  display: flex;  
+  flex-direction: row; 
+  align-items: center; 
+  gap: 4px;
 }
 
-.theme-3 {
-  --work-bg: #de2157;
-  --break-bg: #2257dd;
-  --warmup-bg: #5bdb24;
+.dropdown-item:hover {
+  border-radius: 15px;
+  background-color: rgba(128,128,128,0.5);
+}
 
-  --work-main-bg: #ac123a;
-  --break-main-bg: #1940a4;
-  --warmup-main-bg: #3ba415;
+.theme-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  border-radius: 15px;
+}
+
+.app-wrapper.work-phase .theme-dropdown-menu {
+  background: var(--work-main-bg);
+}
+
+.app-wrapper.break-phase .theme-dropdown-menu {
+  background: var(--break-main-bg);
+}
+
+.app-wrapper.warmup-phase .theme-dropdown-menu {
+  background: var(--warmup-main-bg);
+}
+
+
+.dropdown-item {
+  background: transparent;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
 }
 
 .main-container {

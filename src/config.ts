@@ -1,3 +1,5 @@
+import type { ThemeId } from "./themes";
+
 export const DEFAULT_ROUNDS = 3;
 export const DEFAULT_WORK_TIME_MINUTES = 25;
 export const DEFAULT_BREAK_TIME_MINUTES = 5;
@@ -17,7 +19,7 @@ export interface PomodoroSettings {
   breakTime: number;
   warmupOn: boolean;
   warmupTime: number;
-  theme: 1 | 2 | 3;
+  theme: ThemeId;
 }
 
 export type Phase = "warmup" | "work" | "break" | "finished";

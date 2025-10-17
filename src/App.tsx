@@ -12,6 +12,7 @@ import {
 import GithubButton from "./components/Buttons/GithubButton";
 import { convertNumToTimeString } from "./helpers";
 import Header from "./components/Header/Header";
+import { changeTheme } from "./themes";
 
 function App() {
   // Settings state
@@ -37,12 +38,12 @@ function App() {
     },
   });
 
-  // const phaseStyle =
-  //   status.currentPhase.name === "work" ? "work-phase" : "break-phase";
+  useEffect(() => {
+    const root = document.documentElement;
+    changeTheme(settings.theme, root);
+  }, [settings.theme]);
 
-  const appClass = `app-wrapper theme-${settings.theme} ${status.currentPhase.name}-phase`;
-
-  // const phaseStyle = SetStyle(status, settings);
+  const appClass = `app-wrapper ${status.currentPhase.name}-phase`;
 
   useEffect(() => {
     document.title = `${status.currentPhase.name.toUpperCase()} – ${convertNumToTimeString(
@@ -52,7 +53,7 @@ function App() {
 
   return (
     <div className={`app-wrapper ${appClass}`}>
-      <Header />
+      <Header settings={settings} setSettings={setSettings} />
       <MainContainer
         settings={settings}
         setSettings={setSettings}
