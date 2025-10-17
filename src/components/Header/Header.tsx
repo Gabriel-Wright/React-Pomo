@@ -27,7 +27,15 @@ function Header({ settings, setSettings }: HeaderProps) {
 
   return (
     <div className="header">
-      <h1 className="title">POMODORO</h1>
+      <h1 className="title">
+        <a
+          href="https://en.wikipedia.org/wiki/Pomodoro_Technique"
+          target="_blank"
+          title="What is Pomodoro?"
+        >
+          POMODORO
+        </a>
+      </h1>
       <div className="dropdown" ref={dropDownRef}>
         {/* <ColorPickerButton id="theme-button" onClick={() => setOpen(!open)} /> */}
         <h4 className="dropdown-btn" onClick={() => setOpen(!open)}>
