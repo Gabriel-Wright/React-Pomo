@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Header from "./components/Header";
 import MainContainer from "./components/MainContainer";
 import type { PomodoroSettings, PomodoroStatus } from "./config";
 
@@ -12,6 +11,7 @@ import {
 } from "./config";
 import GithubButton from "./components/Buttons/GithubButton";
 import { convertNumToTimeString } from "./helpers";
+import Header from "./components/Header/Header";
 
 function App() {
   // Settings state
