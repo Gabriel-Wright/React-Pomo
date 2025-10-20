@@ -20,7 +20,7 @@ Customizable settings for:
 
 - Optional Warmup phase ✅
 - Settings menu optional apply or cancel settings ✅
-- Improved test suite
+- Improved test suite ✅
 - Dropdown selection for different visual themes ✅
 - ~~Refactor current iterative pomodoro phases approach to a queue system storing upcoming pomodoro phases~~ (feels extensible as is)
 - ~~Have a "queue" button, that displays upcoming Pomodoro stores~~ (felt would make the app too distracting)

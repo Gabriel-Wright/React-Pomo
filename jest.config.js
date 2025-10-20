@@ -6,4 +6,11 @@ export default {
   transform: {
     ...createDefaultPreset().transform,
   },
+    globals: {
+    "ts-jest": {
+      tsconfig: "tsconfig.test.json",
+    },
+  },
+  moduleFileExtensions: ["ts", "tsx", "js", "jsx"],
+  setupFilesAfterEnv: ["<rootDir>/src/__tests__/setupTests.ts"],
 };
