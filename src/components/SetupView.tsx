@@ -118,13 +118,7 @@ function SetupView({
         id="settings-button"
         tooltip="Apply settings"
         onClick={() => {
-          applyTempSettings(
-            tempSettings,
-            settings,
-            status,
-            setSettings,
-            setStatus
-          );
+          applyTempSettings(tempSettings, status, setSettings, setStatus);
           setSetupShown(false);
         }}
       />
@@ -134,7 +128,6 @@ function SetupView({
 
 function applyTempSettings(
   tempSettings: PomodoroSettings,
-  settings: PomodoroSettings,
   status: PomodoroStatus,
   setSettings: React.Dispatch<React.SetStateAction<PomodoroSettings>>,
   setStatus: React.Dispatch<React.SetStateAction<PomodoroStatus>>
