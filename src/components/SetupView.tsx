@@ -23,12 +23,14 @@ interface SetupViewProps {
   setSettings: React.Dispatch<React.SetStateAction<PomodoroSettings>>;
   setSetupShown: (value: boolean) => void;
   status: PomodoroStatus;
+  setStatus: React.Dispatch<React.SetStateAction<PomodoroStatus>>;
 }
 function SetupView({
   settings,
   setSettings,
   setSetupShown,
   status,
+  setStatus,
 }: SetupViewProps) {
   const [showAlert, setShowAlert] = useState(
     status.hasStarted &&
@@ -116,7 +118,13 @@ function SetupView({
         id="settings-button"
         tooltip="Apply settings"
         onClick={() => {
-          applyTempSettings(tempSettings, setSettings);
+          applyTempSettings(
+            tempSettings,
+            settings,
+            status,
+            setSettings,
+            setStatus
+          );
           setSetupShown(false);
         }}
       />
@@ -126,8 +134,32 @@ function SetupView({
 
 function applyTempSettings(
   tempSettings: PomodoroSettings,
-  setSettings: React.Dispatch<React.SetStateAction<PomodoroSettings>>
+  settings: PomodoroSettings,
+  status: PomodoroStatus,
+  setSettings: React.Dispatch<React.SetStateAction<PomodoroSettings>>,
+  setStatus: React.Dispatch<React.SetStateAction<PomodoroStatus>>
 ) {
   setSettings(tempSettings);
+
+  if (!status.hasStarted) {
+    //If session hasn't started yet, automatically reset to apply new settings
+    if (tempSettings.warmupOn) {
+      // If warmup is on, start with warmup phase
+      setStatus((prev) => ({
+        ...prev,
+        currentRound: 1,
+        currentPhase: {
+          name: "warmup",
+          timeRemaining: tempSettings.warmupTime,
+        },
+      }));
+    } else {
+      setStatus((prev) => ({
+        ...prev,
+        currentRound: 1,
+        currentPhase: { name: "work", timeRemaining: tempSettings.workTime },
+      }));
+    }
+  }
 }
 export default SetupView;

@@ -25,6 +25,7 @@ function MainContainer({
             setStatus((prev) => ({ ...prev, isSetupShown: value }))
           }
           status={status}
+          setStatus={setStatus}
         />
       ) : (
         <CountdownView
